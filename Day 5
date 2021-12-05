@@ -1,0 +1,100 @@
+#### Day 5 ####
+
+### Part 1 ###
+library(readr)
+input5 <- read_csv("input5.csv", col_types = cols(v1 = col_integer(), 
+                                                  v2 = col_integer(), 
+                                                  v3 = col_integer(), 
+                                                  v4 = col_integer()))
+View(input5)
+
+default = matrix(0,989,989)
+frst = 0
+scnd = 0
+thrd = 0
+frth = 0
+
+for (i in 1:nrow(input5)) {
+  
+  frst = as.numeric(input5[i,1])
+  scnd = as.numeric(input5[i,2])
+  thrd = as.numeric(input5[i,3])
+  frth = as.numeric(input5[i,4])
+  
+  if (frst == thrd) {
+    for (j in scnd:frth) {
+      default[frst, j] = default[frst, j] + 1
+    }
+  } 
+  if (scnd == frth) {
+    for (k in frst:thrd) {
+      default[k, scnd] = default[k, scnd] + 1
+    }
+  }
+}
+sum(default)
+
+count = 0
+for (l in 1:nrow(default)) {
+  for (m in 1:ncol(default)){
+    if (default[l,m] > 1) {
+      count = count + 1
+    }
+  }
+}
+
+count
+
+### Part 2 ###
+
+default = matrix(0,989,989)
+frst = 0
+scnd = 0
+thrd = 0
+frth = 0
+
+for (i in 1:nrow(input5)) {
+  
+  frst = as.numeric(input5[i,1])
+  scnd = as.numeric(input5[i,2])
+  thrd = as.numeric(input5[i,3])
+  frth = as.numeric(input5[i,4])
+  
+  if (frst == thrd) {
+    for (j in scnd:frth) {
+      default[frst, j] = default[frst, j] + 1
+    }
+  } 
+  if (scnd == frth) {
+    for (k in frst:thrd) {
+      default[k, scnd] = default[k, scnd] + 1
+    }
+  }
+  if ((frst - thrd) == (scnd - frth)) {
+    v1 = frst:thrd
+    v2 = scnd:frth
+    for (n in 1:length(v1)) {
+      default[v1[n],v2[n]] = default[v1[n],v2[n]] + 1
+    }
+  }
+  if ((frst - thrd) == (frth - scnd)) {
+    v3 = frst:thrd
+    v4 = scnd:frth
+    for (o in 1:length(v3)) {
+      default[v3[o],v4[o]] = default[v3[o],v4[o]] + 1
+    }
+  }  
+}
+
+sum(default)
+
+count = 0
+for (l in 1:nrow(default)) {
+  for (m in 1:ncol(default)){
+    if (default[l,m] > 1) {
+      count = count + 1
+    }
+  }
+}
+
+count
