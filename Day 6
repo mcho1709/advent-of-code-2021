@@ -1,0 +1,27 @@
+initial = c(0, 174, 28, 30, 33, 35, 0)
+newBorn = rep(0, 9)
+temp1 = rep(0, 7)
+temp2 = rep(0, 9)
+day = 0
+allFish = 0
+
+while (day != 256) {
+  
+  temp2[9] = initial[1] + newBorn[1]
+  temp1[7] = initial[1]
+  
+  for (i in 2:length(initial)) {
+    temp1[i-1] = initial[i]
+  }
+  
+  for (j in 2:length(newBorn)) {
+    temp2[j-1] = newBorn[j]
+  }
+  
+  temp2[7] = temp2[7] + newBorn[1]
+  
+  initial = temp1
+  newBorn = temp2
+  day = day + 1
+}
+format(sum(newBorn),scientific = FALSE)
