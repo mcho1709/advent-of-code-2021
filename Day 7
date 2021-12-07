@@ -1,0 +1,61 @@
+#### Day 7 ####
+
+
+### Part 1 ###
+
+day7 <- read_csv("day7.txt", col_names = FALSE)
+
+max(day7)
+length(day7)
+
+day7[1]
+day7[1] - 101
+sum(day7)
+
+dest = c()
+temp = rep(0,1000)
+
+for (j in 1:max(day7)){
+  for (i in 1:length(day7)) {
+    if (day7[i] >= j) {
+      temp[i] = day7[i] - j
+    }
+    else {
+      temp[i] = j - day7[i]
+    }
+  }
+  dest[j] = sum(unlist(temp))
+}
+
+### Part 2 ###
+
+cost = seq(1, 1900, 1)
+temp = rep(0,1000)
+temp2 = 0
+dest = 999999999999999999
+
+for (j in 1:max(day7)){
+  
+  for (i in 1:length(day7)) {
+    if (day7[i] > j) {
+      temp2 = day7[i] - j
+      temp[i] = sum(cost[1:as.integer(temp2)])
+    }
+    else if (day7[i] < j) {
+      temp2 = j - day7[i]
+      temp[i] = sum(cost[1:as.integer(temp2)])
+    }
+    else {
+      temp[i] = 0
+    }
+  }
+  
+  if (sum(unlist(temp)) < dest ) {
+    dest = sum(unlist(temp))
+  }
+  else {
+    dest = dest
+  }
+}
+
+print(dest)
